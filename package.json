@@ -1,0 +1,26 @@
+{
+  "name": "axe-reports",
+  "version": "1.0.32",
+  "description": "Create human readable reports from the results object created by the aXe analyze function.",
+  "main": "axe-reports.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "louisreedjr",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "louis-reed"
+  },
+  "keywords": [
+    "accessibility",
+    "aXe",
+    "automation",
+    "testing",
+    "report",
+    "tsv",
+    "csv"
+  ]
+}
