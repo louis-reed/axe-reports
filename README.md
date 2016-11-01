@@ -40,6 +40,24 @@ npm install axe-reports
 
 ## Usage
 
+**Create a Results File**
+
+Version 1.1 supports independant results file creation
+
+```
+AxeReports.processResults(results, fileType, fileName, [createNewReport])
+
+object results = aXe results object
+
+string fileType = file extension (only 'csv' and 'tsv' are supported)
+
+string fileName = name of file (i.e. test-results) without file extension
+
+boolean createNewReport = tells file writer to start a new file or not
+```
+
+**OR**
+
 Use a create report header row function to start a report; this creates the report header row.
 
 ```
@@ -137,6 +155,39 @@ driver.wait(until.titleIs('Google'), 1000)
 driver.quit();
 ```
 
+## Sample Test #3 (create a test results file)
+
+```
+var AxeBuilder = require('axe-webdriverjs'),
+    AxeReports = require('axe-reports'),
+    webdriver = require('selenium-webdriver'),
+    By = webdriver.By,
+    until = webdriver.until;
+
+var driver = new webdriver.Builder()
+    .forBrowser('chrome') //or firefox or whichever driver you use
+    .build();
+
+var AXE_BUILDER = AxeBuilder(driver)
+    .withTags(['wcag2a', 'wcag2aa']); // specify your test criteria (see aXe documentation for more info)
+
+driver.get('https://www.google.com');
+driver.wait(until.titleIs('Google'), 1000)
+    .then(function () {
+        AXE_BUILDER.analyze(function (results) {
+            AxeReports.processResults(results, 'csv', 'test-results', true);
+        });
+    });
+driver.get('https://www.bing.com');
+driver.wait(until.titleIs('Bing'), 1000)
+    .then(function () {
+        AXE_BUILDER.analyze(function (results) {
+            AxeReports.createCsvReportRow(results, 'csv', 'test-results');
+        });
+    });
+driver.quit();
+```
+
 ## Usage Example
 
 ```
@@ -147,6 +198,14 @@ node csv_testname => results.csv
 
 ```
 node tsv_testname => results.tsv
+```
+
+**OR**
+
+```
+node csv_testname
+
+note: you will need to use the new processResults() function
 ```
 
 ## Authors

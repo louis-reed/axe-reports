@@ -1,3 +1,10 @@
+var FILE_TYPE = {
+    csv: 'csv',
+    tsv: 'tsv'
+}; 
+
+var fs = require('fs');
+
 exports.createBasicReport = function (results) {
     var any,
         anyCount,
@@ -90,11 +97,11 @@ exports.createBasicReport = function (results) {
 };
 
 exports.createTsvReportHeaderRow = function () {
-    console.log('URL\tVolation Type\tImpact\tHelp\tHTML Element\tMessages\tDOM Element');
+    console.log('URL\tVolation Type\tImpact\tHelp\tHTML Element\tMessages\tDOM Element\r');
 };
 
 exports.createCsvReportHeaderRow = function () {
-    console.log('URL,Volation Type,Impact,Help,HTML Element,Messages,DOM Element');
+    console.log('URL,Volation Type,Impact,Help,HTML Element,Messages,DOM Element\r');
 };
 
 exports.createTsvReportRow = function (results) {
@@ -202,7 +209,7 @@ exports.createTsvReport = function (results) {
         violationCount,
         violations = results.violations;
 
-    console.log('URL\tVolation Type\tImpact\tHelp\tHTML Element\tMessages\tDOM Element');
+    console.log('URL\tVolation Type\tImpact\tHelp\tHTML Element\tMessages\tDOM Element\r');
 
     if (typeof violations !== 'undefined') {
         violationCount = violations.length;
@@ -374,7 +381,7 @@ exports.createCsvReport = function (results) {
         violationCount,
         violations = results.violations;
 
-    console.log('URL,Volation Type,Impact,Help,HTML Element,Messages,DOM Element');
+    console.log('URL,Volation Type,Impact,Help,HTML Element,Messages,DOM Element\r');
 
     if (typeof violations !== 'undefined') {
         violationCount = violations.length;
@@ -431,6 +438,116 @@ exports.createCsvReport = function (results) {
 
                             outputRow = outputRow.replace(/(\r\n|\n|\r)/gm,'');
                             console.log(outputRow + '\r');
+                            outputRow = '';
+                        }
+                    }
+                }
+                outputRowPrefix = '';
+            }
+        } 
+    }
+};
+
+exports.processResults = function (results, fileType, fileName, createNewReport) {
+    var any,
+        anyCount,
+        anys,
+        delimiter,
+        i,
+        j,
+        k,
+        node,
+        nodeCount,
+        nodes,
+        outputRow = '',
+        outputRowPrefix = '',
+        target,
+        targetCount,
+        targets,
+        url = results.url,
+        violation,
+        violationCount,
+        violations = results.violations;
+
+    if (FILE_TYPE.csv === fileType) {
+        delimiter = ',';
+        fileName += '.' + FILE_TYPE.csv;
+    } else if (FILE_TYPE.tsv === fileType) {
+        delimiter = '\t';
+        fileName += '.' + FILE_TYPE.tsv;
+    } else {
+        console.log('ERROR - Please supply a valid file type. Currently, only \'csv\' and \'tsv\' are supported.');
+        return undefined;
+    }
+
+    if (!fileName) {
+        console.log('ERROR - Please supply a file name (i.e. my-report)');
+        return undefined;
+    }
+
+    if (createNewReport) {
+        outputRow = ('URL' + delimiter + 'Volation Type' + delimiter + 'Impact' + delimiter + 'Help'
+                    + delimiter + 'HTML Element' + delimiter + 'Messages' + delimiter +  'DOM Element\r');
+        fs.writeFile(fileName, outputRow);
+        outputRow = '';
+    }
+
+    if (typeof violations !== 'undefined') {
+        violationCount = violations.length;
+
+        if (violationCount > 0) {
+            for (i = 0; i < violationCount; i += 1) {
+                violation = violations[i];
+                nodes = violation.nodes;
+
+                if (typeof nodes !== 'undefined') {
+                    outputRow += url.replace(',', '-') + delimiter + violation.id.replace(',', '-') + delimiter + violation.impact.replace(',', '-')
+                                 + delimiter + violation.helpUrl.replace(',', '-');
+                    outputRowPrefix = outputRow;
+                    nodeCount = nodes.length;
+
+                    for (j = 0; j < nodeCount; j += 1) {
+                        node = nodes[j];
+
+                        if (typeof node !== 'undefined') {
+                            if (j !== 0) {
+                                outputRow = outputRowPrefix;
+                            }
+
+                            outputRow += delimiter + node.html.replace(',', '-') + delimiter;
+                            anys = node.any;
+                            targets = node.target;
+
+                            if (typeof anys !== 'undefined') {
+                                anyCount = anys.length;
+
+                                for (k = 0; k < anyCount; k += 1) {
+                                    if (k !== 0) {
+                                        outputRow += '--';
+                                    }
+
+                                    any = anys[k];
+                                    outputRow += any.message.replace(',', '-');
+                                }
+                            }
+
+                            outputRow += delimiter;
+
+                            if (typeof targets !== 'undefined') {
+                                targetCount = targets.length;
+
+                                for (k = 0; k < targetCount; k += 1) {
+                                    if (k !== 0) {
+                                        outputRow += '--';
+                                    }
+
+                                    target = targets[k];
+                                    outputRow += target.replace(',', '-');
+                                }
+                            }
+
+                            outputRow = outputRow.replace(/(\r\n|\n|\r)/gm,'');
+                            fs.appendFile(fileName, outputRow + '\r');
                             outputRow = '';
                         }
                     }
