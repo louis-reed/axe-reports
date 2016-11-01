@@ -42,7 +42,7 @@ npm install axe-reports
 
 **Create a Results File**
 
-Version 1.1 supports independent results file creation
+Version 1.1.0 supports independent results file creation
 
 ```
 AxeReports.processResults(results, fileType, fileName, [createNewReport])
