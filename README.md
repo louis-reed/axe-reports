@@ -42,7 +42,7 @@ npm install axe-reports
 
 **Create a Results File**
 
-Version 1.1.0 supports independent results file creation
+Version 1.1.x supports independent results file creation
 
 ```
 AxeReports.processResults(results, fileType, fileName, [createNewReport])
@@ -182,7 +182,7 @@ driver.get('https://www.bing.com');
 driver.wait(until.titleIs('Bing'), 1000)
     .then(function () {
         AXE_BUILDER.analyze(function (results) {
-            AxeReports.createCsvReportRow(results, 'csv', 'test-results');
+            AxeReports.processResults(results, 'csv', 'test-results');
         });
     });
 driver.quit();

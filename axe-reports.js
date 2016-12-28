@@ -305,7 +305,7 @@ exports.createCsvReportRow = function (results) {
                 nodes = violation.nodes;
 
                 if (typeof nodes !== 'undefined') {
-                    outputRow += url.replace(',', '-') + ',' + violation.id.replace(',', '-') + ',' + violation.impact.replace(',', '-') + ',' + violation.helpUrl.replace(',', '-');
+                    outputRow += url.replace(/,/g , '-') + ',' + violation.id.replace(/,/g , '-') + ',' + violation.impact.replace(/,/g , '-') + ',' + violation.helpUrl.replace(/,/g , '-');
                     outputRowPrefix = outputRow;
                     nodeCount = nodes.length;
 
@@ -317,7 +317,7 @@ exports.createCsvReportRow = function (results) {
                                 outputRow = outputRowPrefix;
                             }
 
-                            outputRow += ',' + node.html.replace(',', '-') + ',';
+                            outputRow += ',' + node.html.replace(/,/g , '-') + ',';
                             anys = node.any;
                             targets = node.target;
 
@@ -330,7 +330,7 @@ exports.createCsvReportRow = function (results) {
                                     }
 
                                     any = anys[k];
-                                    outputRow += any.message.replace(',', '-');
+                                    outputRow += any.message.replace(/,/g , '-');
                                 }
                             }
 
@@ -345,7 +345,7 @@ exports.createCsvReportRow = function (results) {
                                     }
 
                                     target = targets[k];
-                                    outputRow += target.replace(',', '-');
+                                    outputRow += target.replace(/,/g , '-');
                                 }
                             }
 
@@ -392,7 +392,7 @@ exports.createCsvReport = function (results) {
                 nodes = violation.nodes;
 
                 if (typeof nodes !== 'undefined') {
-                    outputRow += url.replace(',', '-') + ',' + violation.id.replace(',', '-') + ',' + violation.impact.replace(',', '-') + ',' + violation.helpUrl.replace(',', '-');
+                    outputRow += url.replace(/,/g , '-') + ',' + violation.id.replace(/,/g , '-') + ',' + violation.impact.replace(/,/g , '-') + ',' + violation.helpUrl.replace(/,/g , '-');
                     outputRowPrefix = outputRow;
                     nodeCount = nodes.length;
 
@@ -404,7 +404,7 @@ exports.createCsvReport = function (results) {
                                 outputRow = outputRowPrefix;
                             }
 
-                            outputRow += ',' + node.html.replace(',', '-') + ',';
+                            outputRow += ',' + node.html.replace(/,/g , '-') + ',';
                             anys = node.any;
                             targets = node.target;
 
@@ -417,7 +417,7 @@ exports.createCsvReport = function (results) {
                                     }
 
                                     any = anys[k];
-                                    outputRow += any.message.replace(',', '-');
+                                    outputRow += any.message.replace(/,/g , '-');
                                 }
                             }
 
@@ -432,7 +432,7 @@ exports.createCsvReport = function (results) {
                                     }
 
                                     target = targets[k];
-                                    outputRow += target.replace(',', '-');
+                                    outputRow += target.replace(/,/g , '-');
                                 }
                             }
 
@@ -501,8 +501,8 @@ exports.processResults = function (results, fileType, fileName, createNewReport)
                 nodes = violation.nodes;
 
                 if (typeof nodes !== 'undefined') {
-                    outputRow += url.replace(',', '-') + delimiter + violation.id.replace(',', '-') + delimiter + violation.impact.replace(',', '-')
-                                 + delimiter + violation.helpUrl.replace(',', '-');
+                    outputRow += url.replace(/,/g , '-') + delimiter + violation.id.replace(/,/g , '-') + delimiter + violation.impact.replace(/,/g , '-')
+                                 + delimiter + violation.helpUrl.replace(/,/g , '-');
                     outputRowPrefix = outputRow;
                     nodeCount = nodes.length;
 
@@ -514,7 +514,7 @@ exports.processResults = function (results, fileType, fileName, createNewReport)
                                 outputRow = outputRowPrefix;
                             }
 
-                            outputRow += delimiter + node.html.replace(',', '-') + delimiter;
+                            outputRow += delimiter + node.html.replace(/,/g , '-') + delimiter;
                             anys = node.any;
                             targets = node.target;
 
@@ -527,7 +527,7 @@ exports.processResults = function (results, fileType, fileName, createNewReport)
                                     }
 
                                     any = anys[k];
-                                    outputRow += any.message.replace(',', '-');
+                                    outputRow += any.message.replace(/,/g , '-');
                                 }
                             }
 
@@ -542,7 +542,7 @@ exports.processResults = function (results, fileType, fileName, createNewReport)
                                     }
 
                                     target = targets[k];
-                                    outputRow += target.replace(',', '-');
+                                    outputRow += target.replace(/,/g , '-');
                                 }
                             }
 
