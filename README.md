@@ -12,7 +12,7 @@ npm install axe-reports
 
 ### Prerequisites
 
-Selenium WebDriver 2.46.1 (as of 19-Oct-2016 this is the latest version supported by aXe)
+Selenium WebDriver
 
 Require
 
@@ -21,7 +21,7 @@ aXe Core
 aXe WebDriver JavaScript
 
 ```
-npm install selenium-webdriver@2.46.1
+npm install selenium-webdriver
 
 npm install require
 
