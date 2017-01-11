@@ -1,5 +1,8 @@
 # aXe Reports
 
+[![Version](https://img.shields.io/npm/v/axe-reports.svg)](https://www.npmjs.com/package/axe-core)
+[![License](https://img.shields.io/npm/l/axe-reports.svg)](LICENSE)
+
 Create human readable reports from the results object created by the aXe analyze function.
 
 ## Getting Started
@@ -96,7 +99,40 @@ AxeReports.createCsvReport(results);
 AxeReports.createTsvReport(results);
 ```
 
-## Sample Test #1 (separate row creation - useful when creating one report for multiple pages)
+## Sample Test #1 (create a test results file)
+
+```
+var AxeBuilder = require('axe-webdriverjs'),
+    AxeReports = require('axe-reports'),
+    webdriver = require('selenium-webdriver'),
+    By = webdriver.By,
+    until = webdriver.until;
+
+var driver = new webdriver.Builder()
+    .forBrowser('chrome') //or firefox or whichever driver you use
+    .build();
+
+var AXE_BUILDER = AxeBuilder(driver)
+    .withTags(['wcag2a', 'wcag2aa']); // specify your test criteria (see aXe documentation for more info)
+
+driver.get('https://www.google.com');
+driver.wait(until.titleIs('Google'), 1000)
+    .then(function () {
+        AXE_BUILDER.analyze(function (results) {
+            AxeReports.processResults(results, 'csv', 'test-results', true);
+        });
+    });
+driver.get('https://www.bing.com');
+driver.wait(until.titleIs('Bing'), 1000)
+    .then(function () {
+        AXE_BUILDER.analyze(function (results) {
+            AxeReports.processResults(results, 'csv', 'test-results');
+        });
+    });
+driver.quit();
+```
+
+## Sample Test #2 (separate row creation - useful when creating one report for multiple pages)
 
 ```
 var AxeBuilder = require('axe-webdriverjs'),
@@ -130,7 +166,7 @@ driver.wait(until.titleIs('Bing'), 1000)
 driver.quit();
 ```
 
-## Sample Test #2 (all-in-one test for a single page)
+## Sample Test #3 (all-in-one test for a single page)
 
 ```
 var AxeBuilder = require('axe-webdriverjs'),
@@ -155,40 +191,15 @@ driver.wait(until.titleIs('Google'), 1000)
 driver.quit();
 ```
 
-## Sample Test #3 (create a test results file)
-
-```
-var AxeBuilder = require('axe-webdriverjs'),
-    AxeReports = require('axe-reports'),
-    webdriver = require('selenium-webdriver'),
-    By = webdriver.By,
-    until = webdriver.until;
-
-var driver = new webdriver.Builder()
-    .forBrowser('chrome') //or firefox or whichever driver you use
-    .build();
-
-var AXE_BUILDER = AxeBuilder(driver)
-    .withTags(['wcag2a', 'wcag2aa']); // specify your test criteria (see aXe documentation for more info)
-
-driver.get('https://www.google.com');
-driver.wait(until.titleIs('Google'), 1000)
-    .then(function () {
-        AXE_BUILDER.analyze(function (results) {
-            AxeReports.processResults(results, 'csv', 'test-results', true);
-        });
-    });
-driver.get('https://www.bing.com');
-driver.wait(until.titleIs('Bing'), 1000)
-    .then(function () {
-        AXE_BUILDER.analyze(function (results) {
-            AxeReports.processResults(results, 'csv', 'test-results');
-        });
-    });
-driver.quit();
-```
-
 ## Usage Example
+
+```
+node csv_testname
+
+note: you will need to use the new processResults() function
+```
+
+**OR**
 
 ```
 node csv_testname => results.csv
@@ -198,14 +209,6 @@ node csv_testname => results.csv
 
 ```
 node tsv_testname => results.tsv
-```
-
-**OR**
-
-```
-node csv_testname
-
-note: you will need to use the new processResults() function
 ```
 
 ## Authors
