@@ -1,6 +1,6 @@
 # aXe Reports
 
-[![Version](https://img.shields.io/npm/v/axe-reports.svg)](https://www.npmjs.com/package/axe-core)
+[![Version](https://img.shields.io/npm/v/axe-reports.svg)](https://www.npmjs.com/package/axe-reports)
 [![License](https://img.shields.io/npm/l/axe-reports.svg)](LICENSE)
 
 Create human readable reports from the results object created by the aXe analyze function.
