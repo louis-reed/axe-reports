@@ -8,7 +8,9 @@
   },
   "author": "louisreedjr",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "chalk": "^2.1.0"
+  },
   "devDependencies": {},
   "repository": {
     "type": "git",
