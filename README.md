@@ -166,7 +166,7 @@ driver.wait(until.titleIs('Bing'), 1000)
 driver.quit();
 ```
 
-## Sample Test #2 (separate row creation - useful when creating one report for multiple pages and outputting to Console in a colorful visual format)
+## Sample Test #3 (separate row creation - useful when creating one report for multiple pages and outputting to Console in a colorful visual format)
 
 ```
 var AxeBuilder = require('axe-webdriverjs'),
@@ -187,7 +187,7 @@ driver.get('https://www.google.com');
 driver.wait(until.titleIs('Google'), 1000)
     .then(function () {
         AXE_BUILDER.analyze(function (results) {
-            AxeReports.createCsvReportRow(results);
+            AxeReports.createCsvReportRow(results); // This output will break a CSV or TSV formatting if written to a file
         });
     });
 driver.get('https://www.bing.com');
@@ -200,7 +200,7 @@ driver.wait(until.titleIs('Bing'), 1000)
 driver.quit();
 ```
 
-## Sample Test #3 (all-in-one test for a single page)
+## Sample Test #4 (all-in-one test for a single page)
 
 ```
 var AxeBuilder = require('axe-webdriverjs'),
