@@ -4,6 +4,7 @@ var FILE_TYPE = {
 }; 
 
 var fs = require('fs');
+var chalk = require('chalk');
 
 exports.createBasicReport = function (results) {
     var any,
@@ -273,6 +274,87 @@ exports.createTsvReport = function (results) {
                 outputRowPrefix = '';
             }
         } 
+    }
+};
+
+exports.createConsoleReportRow = function (results) {
+    var any,
+        anyCount,
+        anys,
+        i,
+        j,
+        k,
+        node,
+        nodeCount,
+        nodes,
+        outputRow = '',
+        outputRowPrefix = '',
+        target,
+        targetCount,
+        targets,
+        url = results.url,
+        violation,
+        violationCount,
+        violations = results.violations;
+
+    if (typeof violations !== 'undefined') {
+        violationCount = violations.length;
+
+        if (violationCount > 0) {
+            for (i = 0; i < violationCount; i += 1) {
+                violation = violations[i];
+                nodes = violation.nodes;
+
+                if (typeof nodes !== 'undefined') {
+                    console.log('----------------------------------------------------------------------------------------------------');
+                    console.log(chalk.bgKeyword('lightblue').keyword('black')('Resource URL: ' + url.replace(/,/g , '-')));
+                    console.log('----------------------------------------------------------------------------------------------------');
+                    console.log(chalk.keyword('palevioletred')('Violation Type:   '), chalk.keyword('palevioletred')('|  ' + violation.id.replace(/,/g , '-')));
+                    console.log(chalk.keyword('palevioletred')('Violation Impact: '), chalk.keyword('palevioletred')('|  ' + violation.impact.replace(/,/g , '-')));
+                    console.log(chalk.keyword('palevioletred')('Help Resource:    '), chalk.keyword('palevioletred')('|  ' + violation.helpUrl.replace(/,/g , '-')));
+
+                    nodeCount = nodes.length;
+
+                    for (j = 0; j < nodeCount; j += 1) {
+                        node = nodes[j];
+
+                        if (typeof node !== 'undefined') {
+                            if (j !== 0) {
+                                outputRow = outputRowPrefix;
+                            }
+
+                            console.log(chalk.keyword('palevioletred')('HTML Element:     '), chalk.keyword('palevioletred')('|  ' + node.html.replace(/,/g , '-')));
+
+                            anys = node.any;
+                            targets = node.target;
+
+                            if (typeof anys !== 'undefined') {
+                                anyCount = anys.length;
+
+                                for (k = 0; k < anyCount; k += 1) {
+                                    any = anys[k];
+                                    console.log(chalk.keyword('palevioletred')('Messages:         '), chalk.keyword('palevioletred')('|  ' + any.message.replace(/,/g , '-')));
+                                    
+                                }
+                            }
+
+                            if (typeof targets !== 'undefined') {
+                                targetCount = targets.length;
+
+                                for (k = 0; k < targetCount; k += 1) {
+                                    target = targets[k];
+                                    console.log(chalk.keyword('palevioletred')('DOM Element:      '), chalk.keyword('palevioletred')('|  ' + target.replace(/,/g , '-')));
+                                    
+                                }
+                            }
+                            console.log('\r\n');
+                        }
+                    }
+                }
+            }
+        } 
+    } else {
+        console.log(chalk.keyword('lightblue')('Congratulations! No a11y violations found'));
     }
 };
 
