@@ -194,7 +194,7 @@ driver.get('https://www.bing.com');
 driver.wait(until.titleIs('Bing'), 1000)
     .then(function () {
         AXE_BUILDER.analyze(function (results) {
-            AxeReports.createConsoleReportRow(results);
+            AxeReports.createConsoleReportRow(results, "light" || "dark"); // Pass string "light" to optimize for lighter console background, or pass string "dark" to optimize for darker console backgrounds.
         });
     });
 driver.quit();

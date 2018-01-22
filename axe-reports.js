@@ -341,178 +341,180 @@ exports.createConsoleReportRow = function(results, consoleColor) {
   if (typeof violations !== "undefined") {
     violationCount = violations.length;
 
-    if (violationCount > 0 && consoleColor !== "light") {
-      for (i = 0; i < violationCount; i += 1) {
-        violation = violations[i];
-        nodes = violation.nodes;
+    if (violationCount > 0) {
+      if (consoleColor === "dark") {
+        for (i = 0; i < violationCount; i += 1) {
+          violation = violations[i];
+          nodes = violation.nodes;
 
-        if (typeof nodes !== "undefined") {
-          console.log(
-            "----------------------------------------------------------------------------------------------------"
-          );
-          console.log(
-            chalk.bgKeyword("lightblue").keyword("black")(
-              "Resource URL: " + url.replace(/,/g, "-")
-            )
-          );
-          console.log(
-            "----------------------------------------------------------------------------------------------------"
-          );
-          console.log(
-            chalk.keyword("palevioletred")("Violation Type:   "),
-            chalk.keyword("palevioletred")(
-              "|  " + violation.id.replace(/,/g, "-")
-            )
-          );
-          console.log(
-            chalk.keyword("palevioletred")("Violation Impact: "),
-            chalk.keyword("palevioletred")(
-              "|  " + violation.impact.replace(/,/g, "-")
-            )
-          );
-          console.log(
-            chalk.keyword("palevioletred")("Help Resource:    "),
-            chalk.keyword("palevioletred")(
-              "|  " + violation.helpUrl.replace(/,/g, "-")
-            )
-          );
+          if (typeof nodes !== "undefined") {
+            console.log(
+              "----------------------------------------------------------------------------------------------------"
+            );
+            console.log(
+              chalk.bgKeyword("lightblue").keyword("black")(
+                "Resource URL: " + url.replace(/,/g, "-")
+              )
+            );
+            console.log(
+              "----------------------------------------------------------------------------------------------------"
+            );
+            console.log(
+              chalk.keyword("palevioletred")("Violation Type:   "),
+              chalk.keyword("palevioletred")(
+                "|  " + violation.id.replace(/,/g, "-")
+              )
+            );
+            console.log(
+              chalk.keyword("palevioletred")("Violation Impact: "),
+              chalk.keyword("palevioletred")(
+                "|  " + violation.impact.replace(/,/g, "-")
+              )
+            );
+            console.log(
+              chalk.keyword("palevioletred")("Help Resource:    "),
+              chalk.keyword("palevioletred")(
+                "|  " + violation.helpUrl.replace(/,/g, "-")
+              )
+            );
 
-          nodeCount = nodes.length;
+            nodeCount = nodes.length;
 
-          for (j = 0; j < nodeCount; j += 1) {
-            node = nodes[j];
+            for (j = 0; j < nodeCount; j += 1) {
+              node = nodes[j];
 
-            if (typeof node !== "undefined") {
-              if (j !== 0) {
-                outputRow = outputRowPrefix;
-              }
-
-              console.log(
-                chalk.keyword("palevioletred")("HTML Element:     "),
-                chalk.keyword("palevioletred")(
-                  "|  " + node.html.replace(/,/g, "-")
-                )
-              );
-
-              anys = node.any;
-              targets = node.target;
-
-              if (typeof anys !== "undefined") {
-                anyCount = anys.length;
-
-                for (k = 0; k < anyCount; k += 1) {
-                  any = anys[k];
-                  console.log(
-                    chalk.keyword("palevioletred")("Messages:         "),
-                    chalk.keyword("palevioletred")(
-                      "|  " + any.message.replace(/,/g, "-")
-                    )
-                  );
+              if (typeof node !== "undefined") {
+                if (j !== 0) {
+                  outputRow = outputRowPrefix;
                 }
-              }
 
-              if (typeof targets !== "undefined") {
-                targetCount = targets.length;
+                console.log(
+                  chalk.keyword("palevioletred")("HTML Element:     "),
+                  chalk.keyword("palevioletred")(
+                    "|  " + node.html.replace(/,/g, "-")
+                  )
+                );
 
-                for (k = 0; k < targetCount; k += 1) {
-                  target = targets[k];
-                  console.log(
-                    chalk.keyword("palevioletred")("DOM Element:      "),
-                    chalk.keyword("palevioletred")(
-                      "|  " + target.replace(/,/g, "-")
-                    )
-                  );
+                anys = node.any;
+                targets = node.target;
+
+                if (typeof anys !== "undefined") {
+                  anyCount = anys.length;
+
+                  for (k = 0; k < anyCount; k += 1) {
+                    any = anys[k];
+                    console.log(
+                      chalk.keyword("palevioletred")("Messages:         "),
+                      chalk.keyword("palevioletred")(
+                        "|  " + any.message.replace(/,/g, "-")
+                      )
+                    );
+                  }
                 }
+
+                if (typeof targets !== "undefined") {
+                  targetCount = targets.length;
+
+                  for (k = 0; k < targetCount; k += 1) {
+                    target = targets[k];
+                    console.log(
+                      chalk.keyword("palevioletred")("DOM Element:      "),
+                      chalk.keyword("palevioletred")(
+                        "|  " + target.replace(/,/g, "-")
+                      )
+                    );
+                  }
+                }
+                console.log("\r\n");
               }
-              console.log("\r\n");
             }
           }
         }
       }
-    }
 
-    if (violationCount > 0 && consoleColor === "light") {
-      for (i = 0; i < violationCount; i += 1) {
-        violation = violations[i];
-        nodes = violation.nodes;
+      if (consoleColor === "light") {
+        for (i = 0; i < violationCount; i += 1) {
+          violation = violations[i];
+          nodes = violation.nodes;
 
-        if (typeof nodes !== "undefined") {
-          console.log(
-            "----------------------------------------------------------------------------------------------------"
-          );
-          console.log(
-            keyword("black")("Resource URL: " + url.replace(/,/g, "-"))
-          );
-          console.log(
-            "----------------------------------------------------------------------------------------------------"
-          );
-          console.log(
-            chalk.keyword("darkslategrey")("Violation Type:   "),
-            chalk.keyword("darkslategrey")(
-              "|  " + violation.id.replace(/,/g, "-")
-            )
-          );
-          console.log(
-            chalk.keyword("darkslategrey")("Violation Impact: "),
-            chalk.keyword("darkslategrey")(
-              "|  " + violation.impact.replace(/,/g, "-")
-            )
-          );
-          console.log(
-            chalk.keyword("darkslategrey")("Help Resource:    "),
-            chalk.keyword("darkslategrey")(
-              "|  " + violation.helpUrl.replace(/,/g, "-")
-            )
-          );
+          if (typeof nodes !== "undefined") {
+            console.log(
+              "----------------------------------------------------------------------------------------------------"
+            );
+            console.log(
+              chalk.keyword("black")("Resource URL: " + url.replace(/,/g, "-"))
+            );
+            console.log(
+              "----------------------------------------------------------------------------------------------------"
+            );
+            console.log(
+              chalk.keyword("firebrick")("Violation Type:   "),
+              chalk.keyword("firebrick")(
+                "|  " + violation.id.replace(/,/g, "-")
+              )
+            );
+            console.log(
+              chalk.keyword("firebrick")("Violation Impact: "),
+              chalk.keyword("firebrick")(
+                "|  " + violation.impact.replace(/,/g, "-")
+              )
+            );
+            console.log(
+              chalk.keyword("firebrick")("Help Resource:    "),
+              chalk.keyword("firebrick")(
+                "|  " + violation.helpUrl.replace(/,/g, "-")
+              )
+            );
 
-          nodeCount = nodes.length;
+            nodeCount = nodes.length;
 
-          for (j = 0; j < nodeCount; j += 1) {
-            node = nodes[j];
+            for (j = 0; j < nodeCount; j += 1) {
+              node = nodes[j];
 
-            if (typeof node !== "undefined") {
-              if (j !== 0) {
-                outputRow = outputRowPrefix;
-              }
-
-              console.log(
-                chalk.keyword("darkslategrey")("HTML Element:     "),
-                chalk.keyword("darkslategrey")(
-                  "|  " + node.html.replace(/,/g, "-")
-                )
-              );
-
-              anys = node.any;
-              targets = node.target;
-
-              if (typeof anys !== "undefined") {
-                anyCount = anys.length;
-
-                for (k = 0; k < anyCount; k += 1) {
-                  any = anys[k];
-                  console.log(
-                    chalk.keyword("darkslategrey")("Messages:         "),
-                    chalk.keyword("darkslategrey")(
-                      "|  " + any.message.replace(/,/g, "-")
-                    )
-                  );
+              if (typeof node !== "undefined") {
+                if (j !== 0) {
+                  outputRow = outputRowPrefix;
                 }
-              }
 
-              if (typeof targets !== "undefined") {
-                targetCount = targets.length;
+                console.log(
+                  chalk.keyword("firebrick")("HTML Element:     "),
+                  chalk.keyword("firebrick")(
+                    "|  " + node.html.replace(/,/g, "-")
+                  )
+                );
 
-                for (k = 0; k < targetCount; k += 1) {
-                  target = targets[k];
-                  console.log(
-                    chalk.keyword("darkslategrey")("DOM Element:      "),
-                    chalk.keyword("darkslategrey")(
-                      "|  " + target.replace(/,/g, "-")
-                    )
-                  );
+                anys = node.any;
+                targets = node.target;
+
+                if (typeof anys !== "undefined") {
+                  anyCount = anys.length;
+
+                  for (k = 0; k < anyCount; k += 1) {
+                    any = anys[k];
+                    console.log(
+                      chalk.keyword("firebrick")("Messages:         "),
+                      chalk.keyword("firebrick")(
+                        "|  " + any.message.replace(/,/g, "-")
+                      )
+                    );
+                  }
                 }
+
+                if (typeof targets !== "undefined") {
+                  targetCount = targets.length;
+
+                  for (k = 0; k < targetCount; k += 1) {
+                    target = targets[k];
+                    console.log(
+                      chalk.keyword("firebrick")("DOM Element:      "),
+                      chalk.keyword("firebrick")(
+                        "|  " + target.replace(/,/g, "-")
+                      )
+                    );
+                  }
+                }
+                console.log("\r\n");
               }
-              console.log("\r\n");
             }
           }
         }
