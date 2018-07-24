@@ -549,7 +549,7 @@ exports.processResults = function (results, fileType, fileName, createNewReport)
                             }
 
                             outputRow = outputRow.replace(/(\r\n|\n|\r)/gm,'');
-                            fs.appendFile(fileName, outputRow + "\r", (err) => {
+                            fs.appendFile(fileName, outputRow + '\r', (err) => {
                               if (err) throw err;
                             });
                             outputRow = '';
