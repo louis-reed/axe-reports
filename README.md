@@ -31,8 +31,6 @@ npm install require
 npm install axe-core
 
 npm install axe-webdriverjs
-
-npm install file-system
 ```
 
 ### Installing
