@@ -3,7 +3,7 @@ var FILE_TYPE = {
     tsv: 'tsv'
 }; 
 
-var fs = require('fs');
+var fs = require('file-system');
 
 exports.createBasicReport = function (results) {
     var any,
