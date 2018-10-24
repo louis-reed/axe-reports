@@ -488,7 +488,9 @@ exports.processResults = function (results, fileType, fileName, createNewReport)
     if (createNewReport) {
         outputRow = ('URL' + delimiter + 'Volation Type' + delimiter + 'Impact' + delimiter + 'Help'
                     + delimiter + 'HTML Element' + delimiter + 'Messages' + delimiter +  'DOM Element\r');
-        fs.writeFile(fileName, outputRow);
+        fs.writeFile(fileName, outputRow, (err) => {
+            if (err) throw err;
+        });
         outputRow = '';
     }
 
@@ -547,7 +549,9 @@ exports.processResults = function (results, fileType, fileName, createNewReport)
                             }
 
                             outputRow = outputRow.replace(/(\r\n|\n|\r)/gm,'');
-                            fs.appendFile(fileName, outputRow + '\r');
+                            fs.appendFile(fileName, outputRow + '\r', (err) => {
+                              if (err) throw err;
+                            });
                             outputRow = '';
                         }
                     }
