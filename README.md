@@ -183,7 +183,7 @@ driver.get('https://www.google.com');
 driver.wait(until.titleIs('Google'), 1000)
     .then(function () {
         AxeBuilder(driver)
-            .withTags(['wcag2a', 'wcag2aa']); // specify your test criteria (see aXe documentation for more info)
+            .withTags(['wcag2a', 'wcag2aa']) // specify your test criteria (see aXe documentation for more info)
             .analyze(function (results) {
                 AxeReports.createCsvReport(results);
             });
