@@ -97,11 +97,11 @@ exports.createBasicReport = function (results) {
 };
 
 exports.createTsvReportHeaderRow = function () {
-    console.log('URL\tVolation Type\tImpact\tHelp\tHTML Element\tMessages\tDOM Element\r');
+    console.log('URL\tViolation Type\tImpact\tHelp\tHTML Element\tMessages\tDOM Element\r');
 };
 
 exports.createCsvReportHeaderRow = function () {
-    console.log('URL,Volation Type,Impact,Help,HTML Element,Messages,DOM Element\r');
+    console.log('URL,Violation Type,Impact,Help,HTML Element,Messages,DOM Element\r');
 };
 
 exports.createTsvReportRow = function (results) {
@@ -209,7 +209,7 @@ exports.createTsvReport = function (results) {
         violationCount,
         violations = results.violations;
 
-    console.log('URL\tVolation Type\tImpact\tHelp\tHTML Element\tMessages\tDOM Element\r');
+    console.log('URL\tViolation Type\tImpact\tHelp\tHTML Element\tMessages\tDOM Element\r');
 
     if (typeof violations !== 'undefined') {
         violationCount = violations.length;
@@ -381,7 +381,7 @@ exports.createCsvReport = function (results) {
         violationCount,
         violations = results.violations;
 
-    console.log('URL,Volation Type,Impact,Help,HTML Element,Messages,DOM Element\r');
+    console.log('URL,Violation Type,Impact,Help,HTML Element,Messages,DOM Element\r');
 
     if (typeof violations !== 'undefined') {
         violationCount = violations.length;
@@ -486,7 +486,7 @@ exports.processResults = function (results, fileType, fileName, createNewReport)
     }
 
     if (createNewReport) {
-        outputRow = ('URL' + delimiter + 'Volation Type' + delimiter + 'Impact' + delimiter + 'Help'
+        outputRow = ('URL' + delimiter + 'Violation Type' + delimiter + 'Impact' + delimiter + 'Help'
                     + delimiter + 'HTML Element' + delimiter + 'Messages' + delimiter +  'DOM Element\r');
         fs.writeFile(fileName, outputRow, (err) => {
             if (err) throw err;
